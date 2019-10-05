@@ -8,7 +8,6 @@ C:\Users\jmmt0\source\repos\TCGCollectionApp\bin\Debug\netcoreapp2.2\TCGCollecti
 C:\Users\jmmt0\source\repos\TCGCollectionApp\bin\Debug\netcoreapp2.2\TCGCollectionApp.pdb
 C:\Users\jmmt0\source\repos\TCGCollectionApp\bin\Debug\netcoreapp2.2\TCGCollectionApp.Views.dll
 C:\Users\jmmt0\source\repos\TCGCollectionApp\bin\Debug\netcoreapp2.2\TCGCollectionApp.Views.pdb
-C:\Users\jmmt0\source\repos\TCGCollectionApp\obj\Debug\netcoreapp2.2\TCGCollectionApp.csprojAssemblyReference.cache
 C:\Users\jmmt0\source\repos\TCGCollectionApp\obj\Debug\netcoreapp2.2\TCGCollectionApp.RazorAssemblyInfo.cache
 C:\Users\jmmt0\source\repos\TCGCollectionApp\obj\Debug\netcoreapp2.2\TCGCollectionApp.RazorAssemblyInfo.cs
 C:\Users\jmmt0\source\repos\TCGCollectionApp\obj\Debug\netcoreapp2.2\TCGCollectionApp.AssemblyInfoInputs.cache
