@@ -28,9 +28,12 @@ namespace TCGCollectionApp {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") {
+                System.Console.WriteLine("-----------------------USING PRODUCTION---------------------");
                 services.AddDbContext<TCGCollectionContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TCGCollectionContext")));
+                System.Console.WriteLine("USING STRING: " + Configuration.GetConnectionString("TCGCollectionContext"));
             } else {
+                System.Console.Write("-----------------------USING LOCAL---------------------");
                 services.AddDbContext<TCGCollectionContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocalContext")));
             }
