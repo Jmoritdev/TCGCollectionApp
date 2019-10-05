@@ -31,7 +31,7 @@ namespace TCGCollectionApp {
                 System.Console.WriteLine("-----------------------USING PRODUCTION---------------------");
                 services.AddDbContext<TCGCollectionContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
-                System.Console.WriteLine("USING STRING: " + Configuration.GetConnectionString("TCGCollectionContext"));
+                System.Console.WriteLine("USING STRING: " + Configuration.GetConnectionString("MyDbConnection"));
             } else {
                 System.Console.Write("-----------------------USING LOCAL---------------------");
                 services.AddDbContext<TCGCollectionContext>(options =>
