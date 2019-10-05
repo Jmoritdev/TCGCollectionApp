@@ -1,4 +1,3 @@
-C:\Users\jmmt0\source\repos\TCGCollectionApp\bin\Debug\netcoreapp2.2\appsettings.Development.json
 C:\Users\jmmt0\source\repos\TCGCollectionApp\bin\Debug\netcoreapp2.2\appsettings.json
 C:\Users\jmmt0\source\repos\TCGCollectionApp\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
 C:\Users\jmmt0\source\repos\TCGCollectionApp\bin\Debug\netcoreapp2.2\TCGCollectionApp.deps.json
@@ -39,3 +38,4 @@ C:\Users\jmmt0\source\repos\TCGCollectionApp\obj\Debug\netcoreapp2.2\Razor\Pages
 C:\Users\jmmt0\source\repos\TCGCollectionApp\obj\Debug\netcoreapp2.2\Razor\Pages\Sets\Details.cshtml.g.cs
 C:\Users\jmmt0\source\repos\TCGCollectionApp\obj\Debug\netcoreapp2.2\Razor\Pages\Sets\Edit.cshtml.g.cs
 C:\Users\jmmt0\source\repos\TCGCollectionApp\obj\Debug\netcoreapp2.2\Razor\Pages\Sets\Index.cshtml.g.cs
+C:\Users\jmmt0\source\repos\TCGCollectionApp\obj\Debug\netcoreapp2.2\TCGCollectionApp.csprojAssemblyReference.cache
