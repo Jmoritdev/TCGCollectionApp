@@ -1,0 +1,58 @@
+﻿@page
+@model TCGCollectionApp.Pages.Cards.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>MTGCard</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MTGCard.ID" class="control-label"></label>
+                <input asp-for="MTGCard.ID" class="form-control" />
+                <span asp-validation-for="MTGCard.ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MTGCard.Name" class="control-label"></label>
+                <input asp-for="MTGCard.Name" class="form-control" />
+                <span asp-validation-for="MTGCard.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MTGCard.LanguageCode" class="control-label"></label>
+                <input asp-for="MTGCard.LanguageCode" class="form-control" />
+                <span asp-validation-for="MTGCard.LanguageCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Set Id</label>
+                <input class="form-control" name="setId" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MTGCard.OracleID" class="control-label"></label>
+                <input asp-for="MTGCard.OracleID" class="form-control" />
+                <span asp-validation-for="MTGCard.OracleID" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="MTGCard.IsFoil" /> @Html.DisplayNameFor(model => model.MTGCard.IsFoil))
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
