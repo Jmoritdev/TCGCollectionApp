@@ -34,6 +34,9 @@ namespace TCGCollectionApp {
                 services.AddDbContext<TCGCollectionContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocalContext")));
             }
+
+            // Automatically perform database migration
+            services.BuildServiceProvider().GetService<TCGCollectionContext>().Database.Migrate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
