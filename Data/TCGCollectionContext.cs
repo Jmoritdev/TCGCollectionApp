@@ -12,6 +12,7 @@ namespace TCGCollectionApp.Models
         public TCGCollectionContext (DbContextOptions<TCGCollectionContext> options)
             : base(options)
         {
+            
         }
 
         public DbSet<TCGCollectionApp.Models.MTGCard> MTGCard { get; set; }

@@ -20,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.MTGSet) {
+@*@foreach (var item in Model.MTGSet) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -31,6 +31,6 @@
                 <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
-}
+}*@
     </tbody>
 </table>
