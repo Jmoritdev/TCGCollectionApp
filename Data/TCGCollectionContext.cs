@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TCGCollectionApp.Models;
 
-namespace TCGCollectionApp.Models
+namespace TCGCollectionApp.Data
 {
     public class TCGCollectionContext : DbContext
     {

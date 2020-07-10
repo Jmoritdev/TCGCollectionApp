@@ -11,9 +11,9 @@ namespace TCGCollectionApp.Pages.Sets
 {
     public class IndexModel : PageModel
     {
-        private readonly TCGCollectionApp.Models.TCGCollectionContext _context;
+        private readonly TCGCollectionApp.Data.TCGCollectionContext _context;
 
-        public IndexModel(TCGCollectionApp.Models.TCGCollectionContext context)
+        public IndexModel(TCGCollectionApp.Data.TCGCollectionContext context)
         {
             _context = context;
         }
