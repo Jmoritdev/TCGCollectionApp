@@ -342,3 +342,5 @@ healthchecksdb
 # Author added
 .vs/
 appsettings.json
+obj/
+bin/

@@ -5,6 +5,54 @@
     ViewData["Title"] = "Index";
 }
 
+<script src="~/js/Cards/Index.js"></script>
+
 <h1>Index Cards</h1>
 
+<select id="SetSelector">
+    @foreach (TCGCollectionApp.Models.MTGSet c in Model.Sets) {
+        <option value="@c.Code">@c.Name</option>
+    }
+</select>
+
+<table>
+    <thead>
+        <tr>
+            <td>Name</td>
+            @*<td>Image</td>*@
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+//https://stackoverflow.com/questions/40354638/ajax-to-get-image-from-remote-server
+<script>
+    function GetCardsBySet(code, lang) {
+        $.ajax({
+            url: "/Cards?handler=CardsFromSet",
+            data: {
+                "code": code,
+                "lang": lang
+            },
+            success: function (result) {
+                $("tbody").children().remove();
+
+                var array = JSON.parse(result);
+                console.log(array);
+
+                $.each(array, function (i, item) {
+                    console.log(array[i]);
+                    $('<tr>')
+                        .html("<td>" + array[i].Name + "</td></tr>")
+                        .appendTo('tbody')
+                        .tooltip({ title: "<img src='" + array[i].ImageUris.Normal +"' />", animation: true, trigger: "hover", html: true });
+                });
+            }
+        })
+    }
+
+    $('select').on('change', function () {
+        GetCardsBySet(this.value, "en");
+    });
+</script>
 

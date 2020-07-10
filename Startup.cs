@@ -9,6 +9,7 @@ using TCGCollectionApp.Models;
 using System;
 using Microsoft.Extensions.Options;
 using TCGCollectionApp.Services;
+using TCGCollectionApp.Data;
 
 namespace TCGCollectionApp {
     public class Startup {
@@ -27,7 +28,9 @@ namespace TCGCollectionApp {
             });
 
             services.AddMvc(options => options.EnableEndpointRouting = false);
-            services.AddTransient<ApiCallerMTG>();
+            services.AddTransient<MTGApiCaller>();
+            services.AddScoped<MTGCardData>();
+            services.AddScoped<MTGSetData>();
             services.AddHttpClient();
 
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") {

@@ -6,60 +6,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using TCGCollectionApp.Data;
 using TCGCollectionApp.Models;
 
 namespace TCGCollectionApp.Pages.Cards
 {
     public class IndexModel : PageModel
     {
-        private readonly TCGCollectionContext _context;
-        private readonly Services.ApiCallerMTG _apiCaller;
+        private readonly MTGCardData cardData;
+        private readonly MTGSetData setData;
 
-        public IndexModel(TCGCollectionContext context, Services.ApiCallerMTG apiCaller)
+        public IndexModel(MTGCardData cardData, MTGSetData setData)
         {
-            _context = context;
-            _apiCaller = apiCaller;
-            SaveAllCards();
+            this.cardData = cardData;
+            this.setData = setData;
         }
 
-        public IList<MTGCard> MTGCard { get;set; }
+        public ICollection<MTGSet> Sets { get; set; }
 
-        public async Task OnGetAsync()
-        {
-            //MTGCard = await _context.MTGCard.ToListAsync();
+        public void OnGetAsync() {
+            Sets = setData.GetSets();
         }
 
-        public void SaveAllCardSets() {
-            string json = _apiCaller.GetAllCardSets().Result;
+        public JsonResult OnGetCardsFromSet(string code, string lang) {
+            var json = System.Text.Json.JsonSerializer.Serialize(cardData.GetCardsFromSet(code, lang));
 
-            AllSetsHelper helper = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSetsHelper>(json);
-
-            foreach (MTGSet set in helper.Data) {
-                _context.MTGSet.Add(set);
-            }
-
-            _context.SaveChanges();
-        }
-
-        public void SaveAllCards() {
-            string json = _apiCaller.GetNextCardPage().Result;
-            CardPageHelper helper = Newtonsoft.Json.JsonConvert.DeserializeObject<CardPageHelper>(json);
-
-            do {
-                foreach(MTGCard card in helper.Data) {
-                    _context.MTGCard.Add(card);
-                }
-
-                _context.SaveChanges();
-                json = _apiCaller.GetNextCardPage(helper.NextPage).Result;
-                helper = Newtonsoft.Json.JsonConvert.DeserializeObject<CardPageHelper>(json);
-            } while (helper.Has_more);
-        }
-
-        public void GetCardImage()
-        {
-            
-            Console.WriteLine("lmao");
+            return new JsonResult(json);
         }
 
         private class AllSetsHelper {
@@ -90,5 +62,32 @@ namespace TCGCollectionApp.Pages.Cards
             [JsonProperty("data")]
             public MTGCard[] Data { get; set; }
         }
+
+        //public void SaveAllCardSets() {
+        //    string json = _apiCaller.GetAllCardSets().Result;
+
+        //    AllSetsHelper helper = Newtonsoft.Json.JsonConvert.DeserializeObject<AllSetsHelper>(json);
+
+        //    foreach (MTGSet set in helper.Data) {
+        //        _context.MTGSet.Add(set);
+        //    }
+
+        //    _context.SaveChanges();
+        //}
+
+        //public void SaveAllCards() {
+        //    string json = _apiCaller.GetNextCardPage().Result;
+        //    CardPageHelper helper = Newtonsoft.Json.JsonConvert.DeserializeObject<CardPageHelper>(json);
+
+        //    do {
+        //        foreach(MTGCard card in helper.Data) {
+        //            _context.MTGCard.Add(card);
+        //        }
+
+        //        _context.SaveChanges();
+        //        json = _apiCaller.GetNextCardPage(helper.NextPage).Result;
+        //        helper = Newtonsoft.Json.JsonConvert.DeserializeObject<CardPageHelper>(json);
+        //    } while (helper.Has_more);
+        //}
     }
 }
