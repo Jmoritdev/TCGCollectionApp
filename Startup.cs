@@ -33,6 +33,9 @@ namespace TCGCollectionApp {
             services.AddScoped<MTGSetData>();
             services.AddHttpClient();
 
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<TCGCollectionContext>();
+
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") {
                 System.Console.WriteLine("-----------------------USING PRODUCTION---------------------");
                 services.AddDbContext<TCGCollectionContext>(options =>
@@ -56,6 +59,9 @@ namespace TCGCollectionApp {
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseMvc();
         }
