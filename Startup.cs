@@ -31,6 +31,11 @@ namespace TCGCollectionApp {
             services.AddTransient<MTGApiCaller>();
             services.AddScoped<MTGCardData>();
             services.AddScoped<MTGSetData>();
+
+            //cron jobs
+            services.AddHostedService<ScopedCronJobConsumer>();
+            services.AddScoped<IScopedCronJob, UpdateCardsAndSetsCronJob>();
+
             services.AddHttpClient();
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)

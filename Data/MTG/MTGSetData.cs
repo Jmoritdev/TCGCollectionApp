@@ -16,5 +16,17 @@ namespace TCGCollectionApp.Data {
         public ICollection<MTGSet> GetSets() {
             return _context.MTGSet.OrderBy(s => s.Name).ToList();
         }
+
+        public void AddSet(MTGSet set) {
+            _context.MTGSet.Add(set);
+        }
+
+        public void SaveChanges() {
+            _context.SaveChanges();
+        }
+
+        public void UpdateSet(MTGSet set) {
+            _context.MTGSet.Add(set).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+        }
     }
 }

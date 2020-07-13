@@ -53,11 +53,29 @@ namespace TCGCollectionApp.Services {
             return await response.Content.ReadAsStringAsync();        
         }
 
-        public async Task<string> GetNextCardPage(string nextPageLink = API_URL+"/cards") {
-            var response = await httpClient.GetAsync(nextPageLink);
+        public async Task<string> GetAllCards() {
+            var response = await httpClient.GetAsync(API_URL + "/bulk-data");
+
+            string json = await response.Content.ReadAsStringAsync();
+
+            dynamic bulkdata = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(json);
+
+            foreach(var d in bulkdata.data) {
+                if(d.type == "all_cards") {
+                    response = await httpClient.GetAsync((string)d.download_uri);
+                    break;
+                }
+            }
 
             return await response.Content.ReadAsStringAsync();
         }
+
+        //endpoint doesnt exist anymore, use bulk 
+        //public async Task<string> GetNextCardPage(string nextPageLink = API_URL+"/cards") {
+        //    var response = await httpClient.GetAsync(nextPageLink);
+
+        //    return await response.Content.ReadAsStringAsync();
+        //}
 
         public async Task<MemoryStream> GetCardImage(string id) {
             Console.Write("TEST");

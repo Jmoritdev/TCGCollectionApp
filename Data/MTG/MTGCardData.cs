@@ -25,5 +25,29 @@ namespace TCGCollectionApp.Data {
         public MemoryStream GetImage(MTGCard card) {
             throw new NotImplementedException();
         }
+
+        public ICollection<MTGCard> GetAll() {
+            return _context.MTGCard.ToList();
+        }
+
+        public void AddCard(MTGCard card) {
+            _context.MTGCard.Add(card);
+        }
+
+        public void AddMultiple(ICollection<MTGCard> cards) {
+            _context.MTGCard.AddRange(cards);
+        }
+
+        public void SaveChanges() {
+            _context.SaveChanges();
+        }
+
+        public void UpdateCard(MTGCard card) {
+            _context.MTGCard.Add(card).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+        }
+
+        public HashSet<string> GetAllIds() {
+            return _context.MTGCard.Select(c => c.Id).ToHashSet<string>();
+        }
     }
 }

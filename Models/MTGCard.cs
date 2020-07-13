@@ -112,7 +112,7 @@ namespace TCGCollectionApp.Models {
                    : JsonConvert.SerializeObject(ColorIdentity);
             }
             set {
-                Console.WriteLine(value);
+                //Console.WriteLine(value);
                 if (value == null)
                     ColorIdentity.Clear();
                 else
