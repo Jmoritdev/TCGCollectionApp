@@ -29,6 +29,8 @@ namespace TCGCollectionApp.Services {
 
         public async Task DoWork(CancellationToken stoppingToken) {
             while (!stoppingToken.IsCancellationRequested) {
+                await Task.Delay(frequency, stoppingToken);
+
                 executionCount++;
 
                 Console.WriteLine("Getting all sets from api");
@@ -85,8 +87,6 @@ namespace TCGCollectionApp.Services {
                 cardData.SaveChanges();
 
                 Console.WriteLine("Database update complete.");
-
-                await Task.Delay(frequency, stoppingToken);
             }
         }
     }
