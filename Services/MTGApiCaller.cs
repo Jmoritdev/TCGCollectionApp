@@ -91,16 +91,6 @@ namespace TCGCollectionApp.Services {
             
         }
 
-        private class AllSetsHelper {
-
-            [JsonProperty("object")]
-            public string Object {get;set;}
-
-            [JsonProperty("has_more")]
-            public bool Has_more { get; set; }
-
-            [JsonProperty("data")]
-            public MTGSet[] Data { get; set; }
-        }
+        
     }
 }

@@ -258,5 +258,7 @@ namespace TCGCollectionApp.Models {
 
         [JsonProperty("purchase_uris")]
         public MTGPurchaseUris PurchaseUris { get; set; }
+
+        public ICollection<MTGUserCard> UserCards { get; set; }
     }
 }
