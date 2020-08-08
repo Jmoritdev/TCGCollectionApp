@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace TCGCollectionApp.Models
 {
     public class MTGUserCard {
 
+        [System.Text.Json.Serialization.JsonIgnore]
         public string UserId { get; set; }
 
         public string CardId { get; set; }
 
+        [System.Text.Json.Serialization.JsonIgnore]
         public User User { get; set; }
 
         public MTGCard Card { get; set; }

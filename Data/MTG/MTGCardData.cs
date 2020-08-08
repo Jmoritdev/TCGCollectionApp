@@ -49,5 +49,36 @@ namespace TCGCollectionApp.Data {
         public HashSet<string> GetAllIds() {
             return _context.MTGCard.Select(c => c.Id).ToHashSet<string>();
         }
+
+        public IQueryable<MTGUserCard> GetCardsForUser(string userId) {
+            return (from usercard in _context.MTGUserCard
+                   join card in _context.MTGCard on usercard.CardId equals card.Id
+                   where usercard.UserId == userId
+                   select usercard).Include(c => c.Card.ImageUris);
+        }
+
+        public IQueryable<MTGSet> GetSetsForCard(string cardName) { 
+            return _context.MTGSet.Where(s => s.Cards.Select(c => c.Name).Contains(cardName));
+        }
+
+        public ICollection<string> GetLanguagesForCardInSet(string cardName, string setCode) {
+            return _context.MTGCard.Where(c => c.Name == cardName && c.Set == setCode).Select(c => c.Lang).Distinct().ToList();
+        }
+
+        public MTGCard SearchForCard(string cardName, string lang, string setCode) {
+            return _context.MTGCard.Where(c => c.Name == cardName && c.Lang == lang && c.Set == setCode).FirstOrDefault();
+        }
+
+        public bool AddToCollection(MTGUserCard collectionItem) {
+
+            MTGUserCard existingCard = _context.MTGUserCard.FirstOrDefault(uc => uc.UserId == collectionItem.UserId && uc.CardId == collectionItem.CardId);
+            if (existingCard == null) {
+                _context.MTGUserCard.Add(collectionItem);
+            } else {
+                existingCard.Amount += collectionItem.Amount;
+            }
+
+            return (_context.SaveChanges() == 1);
+        }
     }
 }

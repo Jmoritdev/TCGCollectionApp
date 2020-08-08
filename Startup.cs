@@ -38,6 +38,7 @@ namespace TCGCollectionApp {
             services.AddScoped<IScopedCronJob, UpdateCardsAndSetsCronJob>();
 
             services.AddHttpClient();
+            services.AddHttpContextAccessor();
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<TCGCollectionContext>();
