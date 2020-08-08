@@ -101,6 +101,14 @@
             data[n['name']] = n['value'];
         });
 
+        if (data['isFoil'] == 'on') {
+            data['isFoil'] = true;
+        }
+
+        if (data['isSigned'] == 'on') {
+            data['isSigned'] = true;
+        }
+
         addToCollection(data);
     });
 
@@ -125,10 +133,11 @@
 
     function resetForm() {
         $("#inputName").val("");
-        $("#selectName").children().remove();
+        $("#selectSet").children().remove();
         $("#selectLang").children().remove();
         $("#inputAmount").val("1");
         $("#inputSigned").prop("checked", false);
+        $("#inputFoil").prop("checked", false);
         $("#inputName").focus();
     }
 

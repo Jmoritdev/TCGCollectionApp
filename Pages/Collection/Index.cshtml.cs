@@ -46,7 +46,7 @@ namespace TCGCollectionApp.Pages.Collection {
             return new JsonResult(cardData.GetLanguagesForCardInSet(cardName, setCode).OrderByDescending(l => l == "en").ThenBy(l => l));
         }
 
-        public IActionResult OnPostAddToCollection(string cardName, string lang, string setCode, int amount, bool signed = false) {
+        public IActionResult OnPostAddToCollection(string cardName, string lang, string setCode, int amount, bool isSigned = false, bool isFoil = false) {
             MTGCard searchedCard = cardData.SearchForCard(cardName, lang, setCode);
 
             if (searchedCard != null) {
@@ -54,7 +54,8 @@ namespace TCGCollectionApp.Pages.Collection {
                 c.CardId = searchedCard.Id;
                 c.UserId = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 c.Amount = amount;
-                c.Signed = signed;
+                c.Signed = isSigned;
+                c.Foil = isFoil;
 
                 if (cardData.AddToCollection(c)) {
                     return StatusCode(201, "Successfully added " + cardName + " to collection");

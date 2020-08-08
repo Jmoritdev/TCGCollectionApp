@@ -23,5 +23,7 @@ namespace TCGCollectionApp.Models
         public int Amount { get; set; }
 
         public bool Signed { get; set; }
+
+        public bool Foil{ get; set; }
     }
 }
