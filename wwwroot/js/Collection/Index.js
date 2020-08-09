@@ -38,12 +38,12 @@
                             $("#nameOptionList option").each(function () { $(this).remove(); })
 
                             let options = result['data'];
-                            if (options.length > 1) {
+                            if (options.length == 1 || options.includes(q)){
                                 //fill list with options
-                                options.forEach(i => $("#nameOptionList").append("<option value=\"" + i + "\">"));
-                            } else if (options.length == 1) {
                                 $("#inputName").val(options[0]);
-                                getSetsForCard(options[0]);   
+                                getSetsForCard(options[0]);
+                            } else if (options.length > 1) {
+                                options.forEach(i => $("#nameOptionList").append("<option value=\"" + i + "\">"));
                             }
                         }
                     });
