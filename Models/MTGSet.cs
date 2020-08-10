@@ -65,6 +65,8 @@ namespace TCGCollectionApp.Models {
         [JsonProperty("icon_svg_uri")]
         public Uri IconSvgUri { get; set; }
 
+        public string IconSvgBase64 { get; set; }
+
         [ForeignKey("Set")]
         public virtual ICollection<MTGCard> Cards { get; set; }
     }

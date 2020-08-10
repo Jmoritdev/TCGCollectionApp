@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TCGCollectionApp.Data;
 
 namespace TCGCollectionApp.Migrations
 {
     [DbContext(typeof(TCGCollectionContext))]
-    partial class TCGCollectionContextModelSnapshot : ModelSnapshot
+    [Migration("20200810184405_AddIconBase64")]
+    partial class AddIconBase64
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
