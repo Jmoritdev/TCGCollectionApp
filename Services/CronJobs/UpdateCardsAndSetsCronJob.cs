@@ -43,7 +43,9 @@ namespace TCGCollectionApp.Services {
                     MTGSet dbSet = dbSets.Where(s => s.Code == (string)apiSet.code).FirstOrDefault();
 
                     if (dbSet == null) {
-                        MTGSet s = Newtonsoft.Json.JsonConvert.DeserializeObject<MTGSet>(apiSet);
+                        MTGSet s = Newtonsoft.Json.JsonConvert.DeserializeObject<MTGSet>(Convert.ToString(apiSet));
+
+                        setData.SaveIconForSet(s);
                         setData.AddSet(s);
                         Console.WriteLine("Added " + (string)apiSet.Name + " as a new set");
                     }

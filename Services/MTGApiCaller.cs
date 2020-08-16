@@ -78,9 +78,7 @@ namespace TCGCollectionApp.Services {
         //}
 
         public async Task<MemoryStream> GetCardImage(string id) {
-            Console.Write("TEST");
             var jsonCard = await GetCard(id);
-
 
             var response = await httpClient.GetAsync(jsonCard.ImageUris.Normal);
 
@@ -88,9 +86,21 @@ namespace TCGCollectionApp.Services {
             var stream = new MemoryStream(myBytes);
 
             return stream;
-            
         }
 
+        public async Task<byte[]> GetSetIcon(MTGSet set) {
+            //a delay here so our ip doesn't get blocked from the api for sending too many requests if we're adding several new sets
+            System.Threading.Thread.Sleep(500);
+            try {
+                var response = await httpClient.GetAsync(set.IconSvgUri);
+
+                return await response.Content.ReadAsByteArrayAsync();
+            } catch (Exception x) {
+                Console.WriteLine("Failed getting icon from api for set: " + set.Name + " Exception: " + x.Message);
+            }
+
+            return null;
+        }
         
     }
 }

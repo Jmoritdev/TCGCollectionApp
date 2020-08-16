@@ -61,12 +61,12 @@ namespace TCGCollectionApp.Data {
             return _context.MTGSet.Where(s => s.Cards.Select(c => c.Name).Contains(cardName));
         }
 
-        public ICollection<string> GetLanguagesForCardInSet(string cardName, string setCode) {
-            return _context.MTGCard.Where(c => c.Name == cardName && c.Set == setCode).Select(c => c.Lang).Distinct().ToList();
+        public ICollection<string> GetLanguagesForCardInSet(string cardName, string setName) {
+            return _context.MTGCard.Where(c => c.Name == cardName && c.SetName == setName).Select(c => c.Lang).Distinct().ToList();
         }
 
-        public MTGCard SearchForCard(string cardName, string lang, string setCode) {
-            return _context.MTGCard.Where(c => c.Name == cardName && c.Lang == lang && c.Set == setCode).FirstOrDefault();
+        public MTGCard SearchForCard(string cardName, string lang, string setName) {
+            return _context.MTGCard.Where(c => c.Name == cardName && c.Lang == lang && c.SetName == setName).FirstOrDefault();
         }
 
         public bool AddToCollection(MTGUserCard collectionItem) {

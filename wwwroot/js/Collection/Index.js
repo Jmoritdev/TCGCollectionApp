@@ -18,41 +18,41 @@
     }
 
     //takes care of autocompleting card names
-    var ts;
+    var timestamp;
     var interval = 300;
     $("#inputName").on("input", function () {
         var q = $("#inputName").val();
         if (q.length >= 2) {
 
-            ts = Date.now();
+            timestamp = Date.now();
 
             setTimeout(function () {
-
                 //check if the user hasn't triggered the event for atleast the amount of milliseconds equal to interval
-                if (Date.now() >= ts + interval) {
-
-                    //send request
-                    $.ajax({
-                        url: "https://api.scryfall.com/cards/autocomplete?q=" + q,
-                        success: function (result) {
-                            $("#nameOptionList option").each(function () { $(this).remove(); })
-
-                            let options = result['data'];
-                            if (options.length == 1 || options.includes(q)){
-                                //fill list with options
-                                $("#inputName").val(options[0]);
-                                getSetsForCard(options[0]);
-                            } else if (options.length > 1) {
-                                options.forEach(i => $("#nameOptionList").append("<option value=\"" + i + "\">"));
-                            }
-                        }
-                    });
-
+                if (Date.now() >= timestamp + interval) {
+                    getAutocomplete(q);
                 }
             }, interval);
 
         }
     });
+
+    function getAutocomplete(query) {
+        $.ajax({
+            url: "https://api.scryfall.com/cards/autocomplete?q=" + query,
+            success: function (result) {
+                $("#nameOptionList option").each(function () { $(this).remove(); })
+
+                let options = result['data'];
+                if (options.length == 1 || options.includes(query)) {
+                    //fill list with options
+                    $("#inputName").val(options[0]);
+                    getSetsForCard(options[0]);
+                } else if (options.length > 1) {
+                    options.forEach(i => $("#nameOptionList").append("<option value=\"" + i + "\">"));
+                }
+            }
+        });
+    }
 
     function getSetsForCard(cardName) {
         $.ajax({
@@ -63,26 +63,47 @@
             success: function(result) {
                 $("#selectSet").children().remove();
 
-                result.forEach(i => $("#selectSet").append("<option value=\"" + i.code + "\">" + i.name + "</option>"));
+                currentSets = result;
 
-                $("#selectSet").trigger("change");
+                result.forEach(function (item, index) {
+                    $("#selectSet").append("<option data-content=\""+item.name+"\"></option>");
+                });
+
+                $("#selectSet").selectpicker("refresh");
+
+                //prepend images
+                var elements = $(".dropdown-item").toArray();
+                elements.forEach(function (item, index) {
+                    var image = new Image(25, 25);
+                    image.src = 'data:image/svg+xml;base64,' + result[index].iconSvgBase64;
+
+                    item.prepend("    ");
+                    item.prepend(image);
+                });
+
+                $(".filter-option-inner-inner").first().html("<img height='25' width='25' src='" + 'data:image/svg+xml;base64,' + result[0].iconSvgBase64 + "'>"+ result[0].name);
+
             }
         });
     }
 
-    $("#selectSet").change(function () {
-        let selectedSet = $("#selectSet").val();
+    //triggers when set is selected
+    $("body").on("DOMSubtreeModified", '.filter-option-inner-inner', function () {
+        let selectedSet = $(".filter-option-inner-inner").first().html();
         let cardName = $("#inputName").val();
 
-        getLanguagesForCardInSet(cardName, selectedSet);
+        if (selectedSet && cardName) {
+            //strip tags from set, there might be an image in there
+            getLanguagesForCardInSet(cardName, selectedSet.stripTags());
+        }
     });
 
-    function getLanguagesForCardInSet(cardName, setCode) {
+    function getLanguagesForCardInSet(cardName, setName) {
         $.ajax({
             url: "/Collection?handler=LanguagesForCardInSet",
             data: {
                 cardName: cardName,
-                setCode: setCode
+                setName: setName
             },
             success: function (result) {
                 $("#selectLang").children().remove();
@@ -101,13 +122,11 @@
             data[n['name']] = n['value'];
         });
 
-        if (data['isFoil'] == 'on') {
-            data['isFoil'] = true;
-        }
+        //data['x'] is 'on' or does not exist, here we convert that into true/false
+        data['isFoil'] = (data['isFoil'] ? true : false);
+        data['isSigned'] = (data['isSigned'] ? true : false);
 
-        if (data['isSigned'] == 'on') {
-            data['isSigned'] = true;
-        }
+        data['setName'] = $(".filter-option-inner-inner").first().html().stripTags();
 
         addToCollection(data);
     });
@@ -139,6 +158,7 @@
         $("#inputSigned").prop("checked", false);
         $("#inputFoil").prop("checked", false);
         $("#inputName").focus();
+        $("#selectSet").selectpicker("refresh");
     }
 
     function showAlert(alert, message) {
@@ -149,5 +169,9 @@
         setTimeout(function () {
             $(alert).hide();
         }, 3000)
+    }
+
+    String.prototype.stripTags = function stripTags() {
+        return this.replace(/<\/?[^>]+(>|$)/g, "");
     }
 });

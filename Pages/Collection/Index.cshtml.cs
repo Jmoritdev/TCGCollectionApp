@@ -39,15 +39,15 @@ namespace TCGCollectionApp.Pages.Collection {
         }
 
         public JsonResult OnGetSetsForCard(string cardName) {
-            return new JsonResult(cardData.GetSetsForCard(cardName).Select(s => new { s.Code, s.Name }));
+            return new JsonResult(cardData.GetSetsForCard(cardName).OrderByDescending(s => s.ReleasedAt).Select(s => new { s.Code, s.Name, s.IconSvgBase64 }));
         }
 
-        public JsonResult OnGetLanguagesForCardInSet(string cardName, string setCode) {
-            return new JsonResult(cardData.GetLanguagesForCardInSet(cardName, setCode).OrderByDescending(l => l == "en").ThenBy(l => l));
+        public JsonResult OnGetLanguagesForCardInSet(string cardName, string setName) {
+            return new JsonResult(cardData.GetLanguagesForCardInSet(cardName, setName).OrderByDescending(l => l == "en").ThenBy(l => l));
         }
 
-        public IActionResult OnPostAddToCollection(string cardName, string lang, string setCode, int amount, bool isSigned = false, bool isFoil = false) {
-            MTGCard searchedCard = cardData.SearchForCard(cardName, lang, setCode);
+        public IActionResult OnPostAddToCollection(string cardName, string lang, string setName, int amount, bool isSigned = false, bool isFoil = false) {
+            MTGCard searchedCard = cardData.SearchForCard(cardName, lang, setName);
 
             if (searchedCard != null) {
                 MTGUserCard c = new MTGUserCard();

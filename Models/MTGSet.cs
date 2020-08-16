@@ -65,6 +65,7 @@ namespace TCGCollectionApp.Models {
         [JsonProperty("icon_svg_uri")]
         public Uri IconSvgUri { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         public string IconSvgBase64 { get; set; }
 
         [ForeignKey("Set")]
