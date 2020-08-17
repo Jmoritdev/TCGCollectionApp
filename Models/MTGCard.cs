@@ -29,7 +29,7 @@ namespace TCGCollectionApp.Models {
             get {
                 return MultiverseIds == null || MultiverseIds.Count == 0
                    ? null
-                   :  System.Text.Json.JsonSerializer.Serialize(MultiverseIds);
+                   : System.Text.Json.JsonSerializer.Serialize(MultiverseIds);
             }
             set {
                 if (string.IsNullOrEmpty(value))
@@ -131,7 +131,7 @@ namespace TCGCollectionApp.Models {
         [NotMapped]
         [JsonProperty("games")]
         public List<string> Games { get; set; } = new List<string>();
-        
+
         public string GamesJson {
             get {
                 return Games == null || Games.Count == 0
@@ -207,7 +207,6 @@ namespace TCGCollectionApp.Models {
         [JsonProperty("artist")]
         public string Artist { get; set; }
 
-
         [NotMapped]
         [JsonProperty("artist_ids")]
         public List<string> ArtistIds { get; set; } = new List<string>();
@@ -261,5 +260,7 @@ namespace TCGCollectionApp.Models {
 
         [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<MTGUserCard> UserCards { get; set; }
+
+        public virtual MTGSet MTGSet { get; set; }
     }
 }

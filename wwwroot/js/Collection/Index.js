@@ -7,9 +7,10 @@
                 $("tbody").children().remove();
 
                 var array = JSON.parse(result);
+                console.log(array);
                 $.each(array, function (i, item) {
                     $('<tr>')
-                        .html("<th scope='row'>" + array[i].Card.Name + "</th><td>" + array[i].Card.SetName + "</td><td>" + array[i].Amount + "</td></tr>")
+                        .html("<th scope='row'>" + array[i].Card.Name + "</th><td><img height=20 width=20 src='data:image/svg+xml;base64," + array[i].Card.MTGSet.IconSvgBase64 +"'/> " + array[i].Card.SetName + "</td><td>" + array[i].Amount + "</td></tr>")
                         .appendTo('tbody')
                         .tooltip({ title: "<img src='" + array[i].Card.ImageUris.Normal + "' />", animation: true, trigger: "hover", html: true });
                 });

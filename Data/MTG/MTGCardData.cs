@@ -54,7 +54,7 @@ namespace TCGCollectionApp.Data {
             return (from usercard in _context.MTGUserCard
                    join card in _context.MTGCard on usercard.CardId equals card.Id
                    where usercard.UserId == userId
-                   select usercard).Include(c => c.Card.ImageUris);
+                   select usercard).Include(c => c.Card.ImageUris).Include(c => c.Card.MTGSet);
         }
 
         public IQueryable<MTGSet> GetSetsForCard(string cardName) { 

@@ -90,7 +90,7 @@ namespace TCGCollectionApp.Services {
 
         public async Task<byte[]> GetSetIcon(MTGSet set) {
             //a delay here so our ip doesn't get blocked from the api for sending too many requests if we're adding several new sets
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(200);
             try {
                 var response = await httpClient.GetAsync(set.IconSvgUri);
 

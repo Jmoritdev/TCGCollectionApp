@@ -68,6 +68,7 @@ namespace TCGCollectionApp.Models {
         [Newtonsoft.Json.JsonIgnore]
         public string IconSvgBase64 { get; set; }
 
+        [System.Text.Json.Serialization.JsonIgnore]
         [ForeignKey("Set")]
         public virtual ICollection<MTGCard> Cards { get; set; }
     }
